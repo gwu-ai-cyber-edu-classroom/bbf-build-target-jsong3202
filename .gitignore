@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 journal.db
 .pytest_cache/
+.DS_Store
