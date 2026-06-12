@@ -188,7 +188,8 @@ def view_note(note_id: int):
     if user is None:
         return redirect(url_for("login"))
     entry = get_db().execute(
-        "SELECT id, user_id, title, body, created_at FROM entries WHERE id = ?", (note_id,)
+        "SELECT id, user_id, title, body, created_at FROM entries WHERE id = ? AND user_id = ?",
+        (note_id, user["id"]),
     ).fetchone()
     if entry is None:
         return render_template("note.html", user=user, entry=None), 404
