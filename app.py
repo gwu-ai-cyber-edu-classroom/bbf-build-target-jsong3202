@@ -27,7 +27,10 @@ from flask import (
 )
 
 app = Flask(__name__)
-app.secret_key = "journ-dev-secret"
+# Sign session cookies with a secret loaded from the environment. Fall back to a
+# random per-process key so a misconfigured deploy is still unforgeable (existing
+# sessions just don't survive a restart). Never hardcode the key in source.
+app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32)
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "journal.db")
 CANARY_FILE = os.path.join(os.path.dirname(__file__), "secret", "canary.txt")
