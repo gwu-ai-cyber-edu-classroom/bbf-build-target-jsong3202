@@ -201,7 +201,9 @@ def delete_note(note_id: int):
     user = current_user()
     if user is None:
         return redirect(url_for("login"))
-    get_db().execute("DELETE FROM entries WHERE id = ?", (note_id,))
+    get_db().execute(
+        "DELETE FROM entries WHERE id = ? AND user_id = ?", (note_id, user["id"])
+    )
     get_db().commit()
     return redirect(url_for("journal"))
 
