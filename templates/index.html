@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <title>Journ</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 4rem auto; line-height: 1.5; }
+    a.btn { display: inline-block; padding: .5rem 1rem; background: #2d6cdf; color: #fff;
+            text-decoration: none; border-radius: 6px; margin-right: .5rem; }
+  </style>
+</head>
+<body>
+  <h1>Journ</h1>
+  <p>A small private journal. Sign in to read and write your entries.</p>
+  <p>
+    <a class="btn" href="{{ url_for('login') }}">Log in</a>
+    <a class="btn" href="{{ url_for('register') }}">Create account</a>
+  </p>
+</body>
+</html>

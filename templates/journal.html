@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <title>Your journal — Journ</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 3rem auto; line-height: 1.5; }
+    header { display: flex; justify-content: space-between; align-items: baseline; }
+    ul { list-style: none; padding: 0; }
+    li { padding: .6rem 0; border-bottom: 1px solid #eee; }
+    a.btn { display: inline-block; padding: .4rem .8rem; background: #2d6cdf; color: #fff;
+            text-decoration: none; border-radius: 6px; }
+    .muted { color: #888; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>{{ user['username'] }}'s journal</h1>
+    <span class="muted">
+      <a href="{{ url_for('new_entry') }}" class="btn">New entry</a>
+      &nbsp;<a href="{{ url_for('logout') }}">Log out</a>
+    </span>
+  </header>
+  {% if entries %}
+  <ul>
+    {% for e in entries %}
+    <li>
+      <a href="{{ url_for('view_note', note_id=e['id']) }}">{{ e['title'] }}</a>
+      <div class="muted">{{ e['created_at'] }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted">No entries yet. Write your first one.</p>
+  {% endif %}
+</body>
+</html>

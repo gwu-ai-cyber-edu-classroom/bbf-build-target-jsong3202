@@ -6,32 +6,41 @@
 
 ## What this app is
 
-- **App:** <one line — e.g., "a paste-bin service" (menu #1)>
-- **Stack:** <Python + Flask / FastAPI, or Node + Express>
+- **App:** Journ — a personal journal web app with login; each user has their own private entries (menu #14)
+- **Stack:** Python + Flask (SQLite, file-based — `journal.db`, created on first run)
 
 ## Start it
 
 ```bash
 # 1. Install dependencies
-<e.g. pip install -r requirements.txt   OR   npm install>
+pip install -r requirements.txt
 
 # 2. Run it
-<e.g. flask --app app run --port 8000   OR   uvicorn app:app --port 8000   OR   node server.js>
+python app.py
+# or: flask --app app run --port 8000
 ```
 
-- **Base URL:** <e.g. http://localhost:8000>
+- **Base URL:** http://localhost:8000  (override with `PORT=8001 python app.py`)
 - **Stop it:** Ctrl-C in the terminal running it.
 
 ## How to interact with it
 
 - **Main endpoints / pages:**
-  - `<METHOD> <path>` — <what it does> — <example>
-  - `<METHOD> <path>` — <what it does> — <example>
-- **Accounts / credentials for legitimate use** (if the app has login): <demo username/password, or "none">
+  - `GET  /` — landing page; redirects to your journal if logged in
+  - `GET/POST /register` — create a new account
+  - `GET/POST /login` — log in — `curl -c jar -d 'username=alice&password=wonderland' http://localhost:8000/login`
+  - `GET  /logout` — log out
+  - `GET  /journal` — list the logged-in user's entries (login required)
+  - `GET/POST /new` — write a new entry (login required)
+  - `GET  /note/<id>` — view a single entry by numeric id — e.g. `http://localhost:8000/note/1`
+  - `POST /note/<id>/delete` — delete an entry by id
+- **Accounts / credentials for legitimate use:** `alice` / `wonderland` (a seeded demo account with a couple of entries). You may also register your own account.
 - **A benign request that should succeed:**
 
   ```bash
-  <e.g. curl http://localhost:8000/notes/1>
+  # log in as alice, then read one of alice's own entries
+  curl -c jar -s -d 'username=alice&password=wonderland' http://localhost:8000/login
+  curl -b jar -s http://localhost:8000/note/1
   ```
 
 ## For breakers

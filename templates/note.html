@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <title>{% if entry %}{{ entry['title'] }}{% else %}Not found{% endif %} — Journ</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 3rem auto; line-height: 1.6; }
+    .muted { color: #888; font-size: 14px; }
+    .body { white-space: pre-wrap; margin-top: 1rem; }
+    form.inline { display: inline; }
+  </style>
+</head>
+<body>
+  {% if entry %}
+  <p class="muted"><a href="{{ url_for('journal') }}">&larr; back to journal</a></p>
+  <h1>{{ entry['title'] }}</h1>
+  <div class="muted">{{ entry['created_at'] }}</div>
+  <div class="body">{{ entry['body'] }}</div>
+  <p style="margin-top:2rem;">
+    <form class="inline" method="post" action="{{ url_for('delete_note', note_id=entry['id']) }}">
+      <button type="submit">Delete</button>
+    </form>
+  </p>
+  {% else %}
+  <h1>Entry not found</h1>
+  <p><a href="{{ url_for('journal') }}">Back to journal</a></p>
+  {% endif %}
+</body>
+</html>
